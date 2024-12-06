@@ -1,0 +1,31 @@
+
+.hcarousel{
+    
+    height: 450px;
+}
+
+
+my-5 img{
+    height: 100px;
+    object-fit: cover;
+}
+.cur {
+    cursor: pointer;
+}
+.hx{
+    height:200px;
+}
+
+.himg{
+    height: 150px;
+
+}
+
+.changecolor{
+    background-color: rgb(12, 218, 60);
+}
+.card img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+  }

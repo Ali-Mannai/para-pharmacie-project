@@ -1,0 +1,15 @@
+<div class="container mb-5">
+    <h2 class="text-center mb-4">Shop by Category</h2>
+    <div class="row g-4">
+      <div class="col-md-4" *ngFor="let category of categories">
+        <div class="card h-100 shadow-sm">
+          <img [src]="category.imageUrl" class="card-img-top" [alt]="category.name">
+          <div class="card-body text-center">
+            <h3 class="card-title h5">{{category.name}}</h3>
+            <p class="card-text">{{category.description}}</p>
+            <button class="btn btn-outline-primary">Browse {{category.name}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
