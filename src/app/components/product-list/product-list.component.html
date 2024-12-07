@@ -6,19 +6,24 @@
         <div class="col-md-4 mb-4" *ngFor="let product of products">
           <div class="card h-100">
             <img [src]="product.imageUrl" class="card-img-top" [alt]="product.name">
-            <div class="card-body">
-              <h5 class="card-title">{{product.name}}</h5>
-              <p class="card-text">{{product.description}}</p>
-              <p class="card-text"><small class="text-muted">Category: {{product.category}}</small></p>
-              <p class="card-text"><strong>€{{product.price}}</strong></p>
-              <button class="btn btn-primary" [disabled]="product.stock === 0">
-                {{product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}}
-              </button>
+              <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text"><small class="text-muted">Category: {{ product.category }}</small></p>
+                <p class="card-text"><strong>€{{ product.price }}</strong></p>
+                <button
+                  class="btn btn-primary"
+                  [disabled]="product.stock === 0"
+                  (click)="addToCart(product)"
+                >
+                  {{ product.stock > 0 ? 'Add to Cart' : 'Out of Stock' }}
+                </button>
+              </div>
             </div>
+            
           </div>
         </div>
       </div>
-    </div>
     <br>
    <br>
     

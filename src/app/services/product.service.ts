@@ -64,20 +64,39 @@ export class ProductService {
   ];
 
   private productsSubject = new BehaviorSubject<Product[]>(this.products);
+  private cartSubject = new BehaviorSubject<Product[]>([]);  // Cart as an observable
 
+  // Get all products
   getProducts(): Observable<Product[]> {
     return this.productsSubject.asObservable();
   }
 
-  addProduct(product: Product): void {
-    const newProduct = {
-      ...product,
-      id: this.products.length + 1
-    };
-    this.products.push(newProduct);
-    this.productsSubject.next(this.products);
+  // Get the current cart
+  getCart(): Observable<Product[]> {
+    return this.cartSubject.asObservable();
   }
 
+  // Add a product to the cart
+  addToCart(product: Product): void {
+    let cart = this.cartSubject.getValue();
+    const existingProduct = cart.find(item => item.id === product.id);
+    
+    if (existingProduct) {
+      existingProduct.stock += 1;  // Increase stock if the product is already in the cart
+    } else {
+      cart.push({ ...product, stock: 1 });  // Add product with quantity 1
+    }
+    
+    this.cartSubject.next(cart);
+  }
+
+  // Remove product from cart
+  removeFromCart(productId: number): void {
+    const updatedCart = this.cartSubject.getValue().filter(item => item.id !== productId);
+    this.cartSubject.next(updatedCart);
+  }
+
+  // Update product (for example, update stock or price)
   updateProduct(product: Product): void {
     const index = this.products.findIndex(p => p.id === product.id);
     if (index !== -1) {
@@ -86,8 +105,18 @@ export class ProductService {
     }
   }
 
+  // Delete product (from products list)
   deleteProduct(id: number): void {
     this.products = this.products.filter(p => p.id !== id);
+    this.productsSubject.next(this.products);
+  }
+  addProduct(product: Product): void {
+    const newProduct = {
+      ...product,
+      id: this.products.length + 1
+    };
+    console.log(newProduct,"here new product");
+    this.products.push(newProduct);
     this.productsSubject.next(this.products);
   }
 }
